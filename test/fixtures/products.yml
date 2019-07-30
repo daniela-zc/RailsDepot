@@ -13,7 +13,7 @@ two:
   price: 9.99
 
 ruby:
-  title: 'test'
+  title: 'Programming Ruby 1.9'
   description: 'description test'
   image_url: 'ruby.jpg'
   price: 9.99
