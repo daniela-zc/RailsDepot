@@ -22,12 +22,14 @@
       <li><a href=​"/news"​>News</a></li>
       <li><a href=​"/contact"​>Contact</a></li>
     </ul>
-    <span> Date: <%= @date %> </span>
-    <span> Time: <%= @time %> </span>
+    <div class='date-time'>
+      <div> Date: <%= @date %> </div>
+      <div> Time: <%= @time %> </div>
+    </div>
   </nav>
   
   <main class='<%= controller.controller_name %>'>
-  <%= yield %>
+    <%= yield %>
   </main>
   </section>
   </body>
