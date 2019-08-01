@@ -22,8 +22,8 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
 
     follow_redirect!
 
-    assert_select 'h2', 'Cart'
-    assert_select 'main li', "1 \u00D7 Programming Ruby 1.9"
+    assert_select 'h2', 'Your Cart'
+    assert_select 'main td', "1 \u00D7 Programming Ruby 1.9"
 
   end
 
