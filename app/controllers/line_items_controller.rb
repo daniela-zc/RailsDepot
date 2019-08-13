@@ -3,7 +3,7 @@ class LineItemsController < ApplicationController
   before_action :reset_counter
   
   include CurrentCart
-  before_action :set_cart, only: [:create]
+  before_action :set_cart, only: [:create, :decrement]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
   # GET /line_items
@@ -59,6 +59,26 @@ class LineItemsController < ApplicationController
     end
   end
 
+  def decrement 
+    respond_to do |format|
+      @line_item = get_line_item
+      quantity = @line_item.quantity - 1
+      if quantity > 0
+        @line_item.update_attribute(:quantity, quantity )
+        format.html { redirect_to @cart, notice: 'Line item was successfully updated.' }
+        format.js { @current_item = @line_item }
+        format.json { render :show, status: :ok, location: @line_item }
+      else
+        @line_item.destroy
+        format.html { render :edit }
+        format.js { @current_item = @line_item }
+        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+      end
+      ActionCable.server.broadcast 'cart',
+          html: render_to_string('cart/index', layout: false)
+    end
+  end
+
   # DELETE /line_items/1
   # DELETE /line_items/1.json
   def destroy
@@ -70,6 +90,11 @@ class LineItemsController < ApplicationController
   end
 
   private
+
+    def get_line_item
+      @line_item = LineItem.find(params[:line_item_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_line_item
       @line_item = LineItem.find(params[:id])
@@ -79,4 +104,5 @@ class LineItemsController < ApplicationController
     def line_item_params
       params.require(:line_item).permit(:product_id)
     end
+    
 end
