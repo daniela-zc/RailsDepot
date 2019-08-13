@@ -74,8 +74,6 @@ class LineItemsController < ApplicationController
         format.js { @current_item = @line_item }
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
-      ActionCable.server.broadcast 'cart',
-          html: render_to_string('cart/index', layout: false)
     end
   end
 
