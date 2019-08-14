@@ -6,6 +6,6 @@ one:
   quantity: 1
 
 two:
-  product: two
+  product: ruby
   cart: two
   quantity: 1
