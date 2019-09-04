@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 class PurchaseOrderPayType extends React.Component {
   render() {
@@ -11,4 +11,4 @@ class PurchaseOrderPayType extends React.Component {
   }
 }
 
-export default PurchaseOrderPayType
+export default PurchaseOrderPayType;

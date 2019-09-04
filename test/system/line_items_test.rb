@@ -18,8 +18,6 @@ class LineItemsTest < ApplicationSystemTestCase
     fill_in "Product", with: @line_item.product_id
     click_on "Create Line item"
 
-    assert_text "Line item was successfully created"
-    click_on "Back"
   end
 
   test "updating a Line item" do
@@ -42,4 +40,11 @@ class LineItemsTest < ApplicationSystemTestCase
 
     assert_text "Line item was successfully destroyed"
   end
+
+  test "highlighting a Line item" do
+    visit store_index_url
+    first('.catalog li').click_on 'Add to cart'
+    assert_selector "#cart"
+    assert_selector "tr.line-item-highlight"
+  end  
 end

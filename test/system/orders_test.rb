@@ -11,17 +11,19 @@ class OrdersTest < ApplicationSystemTestCase
   end
 
   test "creating a Order" do
-    visit orders_url
-    click_on "New Order"
+    visit store_index_url
+    first('.catalog li').click_on 'Add to cart'
+
+    click_on 'Checkout'
 
     fill_in "Address", with: @order.address
     fill_in "Email", with: @order.email
     fill_in "Name", with: @order.name
-    fill_in "Pay type", with: @order.pay_type
-    click_on "Create Order"
-
-    assert_text "Order was successfully created"
-    click_on "Back"
+    
+    select 'Purchase order', from: "pay_type"
+    fill_in "Routing #", with: 123
+    click_on "Place Order"
+    assert_text "Thank you for your order."
   end
 
   test "updating a Order" do
@@ -31,8 +33,7 @@ class OrdersTest < ApplicationSystemTestCase
     fill_in "Address", with: @order.address
     fill_in "Email", with: @order.email
     fill_in "Name", with: @order.name
-    fill_in "Pay type", with: @order.pay_type
-    click_on "Update Order"
+    click_on "Place Order"
 
     assert_text "Order was successfully updated"
     click_on "Back"
@@ -46,4 +47,35 @@ class OrdersTest < ApplicationSystemTestCase
 
     assert_text "Order was successfully destroyed"
   end
+
+  test "check routing number" do 
+    visit store_index_url
+    first('.catalog li').click_on 'Add to cart'
+
+    click_on 'Checkout'
+    fill_in 'order_name', with: 'Dave Thomas'
+    fill_in 'order_address', with: '123 Main street'
+    fill_in 'order_email', with: 'dave@example.com'
+
+    assert_no_selector "#order_routing_number"
+
+    select 'Check', from: 'pay_type'
+    assert_selector "#order_routing_number"
+  end
+
+  test "check credit card number" do 
+    visit store_index_url
+    first('.catalog li').click_on 'Add to cart'
+
+    click_on 'Checkout'
+    fill_in 'order_name', with: 'Dave Thomas'
+    fill_in 'order_address', with: '123 Main street'
+    fill_in 'order_email', with: 'dave@example.com'
+
+    assert_no_selector "#order_credit_card_number"
+
+    select 'Credit card', from: 'pay_type'
+    assert_selector "#order_credit_card_number"
+  end
+
 end

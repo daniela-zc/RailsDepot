@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 class CreditCardPayType extends React.Component {
   render() {
@@ -15,4 +15,4 @@ class CreditCardPayType extends React.Component {
   }
 }
 
-export default CreditCardPayType
+export default CreditCardPayType;

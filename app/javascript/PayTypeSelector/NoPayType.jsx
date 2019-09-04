@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 class NoPayType extends React.Component {
   render() {
@@ -6,4 +6,4 @@ class NoPayType extends React.Component {
   }
 }
 
-export default NoPayType
+export default NoPayType;
